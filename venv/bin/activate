@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/shalini/workspace/Option_pricing/venv"
+VIRTUAL_ENV="/Users/shalini/workspace/option-pricing/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
