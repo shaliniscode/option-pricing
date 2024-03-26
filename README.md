@@ -1,3 +1,3 @@
-# black-scholes
 
-Implementation of Black-Schloes model.
+
+Implementation of different models such as Black-Scholes model, monte carlo  simulation for option pricing
