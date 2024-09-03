@@ -80,8 +80,9 @@ def yang_zhang(price_data, window=20,trading_periods=252):
 
     open_vol = log_oc_sq.rolling(window = window, center = False).sum() * (1.0 / (window - 1.0))
     window_rs = rs.rolling(window = window, center = False).sum() * (1.0 / (window - 1.0))
+
     k = 0.34 / (1.34 + (window + 1)/(window - 1))
-    result = (open_vol + k * close_vol + (1- k)* window_rs).apply(np.sqrt)
+    result = (open_vol + k * close_vol + (1- k)* window_rs).apply(np.sqrt) * math.sqrt(trading_periods)
     return result
 
     
