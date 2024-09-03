@@ -69,16 +69,23 @@ def yang_zhang(price_data, window=20,trading_periods=252):
     log_co = (price_data["Close"] / price_data['Open']).apply(np.log) 
 
     log_oc = (price_data['Open'] / price_data['Close'].shift(1)).apply(np.log)
-    log_oc_sq = log_oc ** 2
+    #log_oc_sq = (log_oc - log_oc.mean())** 2
 
-    log_cc = (price_data['Close'] / price_data['Close'].shift(1)).apply(np.log)
-    log_cc_sq = log_cc ** 2
+    log_cc = (price_data['Close'] / price_data['Open']).apply(np.log)
+    #log_cc_sq = (log_cc  - log_cc.mean()) ** 2
 
     rs = log_ho * (log_ho - log_co) + log_lo * (log_lo - log_co)
+
+    log_oc_avg = log_oc.rolling(window = window, center= False).mean()
+    log_oc_sq = (log_oc - log_oc_avg)**2
+    
+    log_cc_avg = log_cc.rolling(window = window, center= False).mean()
+    log_cc_sq = (log_cc - log_cc_avg)**2
 
     close_vol = log_cc_sq.rolling(window = window, center = False).sum() * (1.0 / (window-1.0))
 
     open_vol = log_oc_sq.rolling(window = window, center = False).sum() * (1.0 / (window - 1.0))
+
     window_rs = rs.rolling(window = window, center = False).sum() * (1.0 / (window - 1.0))
 
     k = 0.34 / (1.34 + (window + 1)/(window - 1))
